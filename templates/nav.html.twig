@@ -1,3 +1,17 @@
 <ul>
-    <li>teste</li>
+    {% for list in nav %}
+        {% if list.dropdown != true %}
+            <li>
+                {% if list.path != null %}
+                    <a href="{{ path(list.path) }}">
+                        {{ list.nom }}
+                    </a>
+                {% else %}
+                    <a href="#">
+                        {{ list.nom }}
+                    </a>
+                {% endif %}
+            </li>
+        {% endif %} 
+    {% endfor %}
 </ul>
