@@ -1,3 +1,10 @@
 #nav {
-    color: red;
+    @include displayFlexCenter();
+    height:10vh;
+    ul {
+        li {
+           color :red;
+           list-style-type: none;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 body {
     background-color: lightblue;
 }
-
+@import "general/generalClass.scss";
 @import "nav/mainNav.scss";
+@import "footer/footer.scss";
