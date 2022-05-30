@@ -18,8 +18,23 @@
     align-items: center;
     flex-direction: column;
 }
+@mixin displayFlexColumnOnly {
+    display: flex;
+    flex-direction: column;
+}
+@mixin displayFlexColumnAndAlignItemStrech {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-direction: column;
+}
 @mixin displayFlexSpanceAround {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+}
+@mixin displayFlexSpanceBetween {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
