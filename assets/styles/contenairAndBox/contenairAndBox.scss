@@ -1,0 +1,22 @@
+.contenair {
+    width: 100%;
+    height: auto;
+    @include displayFlexCenter();
+}
+.box {
+    @include displayFlexWrap();
+    width: 1000px;
+    height: auto;
+}
+.card {
+    width: 250px;
+    height:300px;
+    border: 1px solid rgba(0,0,0,1);
+    margin: 10px 20px 10px 10px;
+    border-radius: 20px;
+    .title {
+        //width: 100%;
+        @include displayFlexCenter();
+        
+    }
+}

@@ -1,8 +1,9 @@
 body {
-    background-color: lightblue;
+    //background-color: rgba(255, 255, 255,1);
     margin: 0;
     padding: 0;
 }
 @import "general/generalClass.scss";
 @import "nav/mainNav.scss";
+@import "contenairAndBox/contenairAndBox.scss";
 @import "footer/footer.scss";
