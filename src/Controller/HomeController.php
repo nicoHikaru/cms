@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    private $mainNavService;
+    private MainNavService $mainNavService;
 
     public function __construct(MainNavService $mainNavService)
     {
