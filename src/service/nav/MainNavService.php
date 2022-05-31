@@ -1,5 +1,5 @@
 <?php
-namespace App\service\nav;
+namespace App\Service\Nav;
 
 use App\Entity\MainNav;
 use App\Repository\MainNavRepository;
