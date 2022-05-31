@@ -1,0 +1,31 @@
+.contentLogReg {
+    height: 100vh;
+}
+.boxLogReg {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    height: 80vh;
+}
+.imgLogReg {
+    width:65%;
+    height: 80vh;
+    background: rgba(0, 0, 255,0.5)
+}
+.formLogRegister {
+    @include displayFlexColumn();
+    width: 35%;
+}
+.mgtForm {
+    @include marginTopForm();
+}
+.form {
+    @include inputForm();
+}
+.button {
+    background: rgb(51, 181, 7);
+    border: 0;
+    padding: 12px 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    color: white;
+    font-size: 1em;
+}

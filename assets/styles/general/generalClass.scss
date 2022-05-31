@@ -38,3 +38,27 @@
     justify-content: space-between;
     align-items: center;
 }
+@mixin paddingTopForm {
+    padding-top: 10px;
+}
+@mixin marginTopForm {
+    margin-top: 10px;
+}
+
+@mixin inputForm {
+   input[type=text] {
+       width: 100%;
+       padding: 12px 20px;
+       box-sizing: border-box;
+   }
+   input[type=email] {
+        width: 100%;
+        padding: 12px 20px;
+       border: 0;
+   }
+   input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        box-sizing: border-box;
+    }
+}
