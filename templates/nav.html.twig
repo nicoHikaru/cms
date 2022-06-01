@@ -1,21 +1,16 @@
 <ul>
     {% if app.user %}
         <li>
-            {% for list in nav %}
-                {% if list.dropdown != true %}
-                    <li>
-                        {% if list.path != null %}
-                            <a href="{{ path(list.path) }}">
-                                {{ list.nom }}
-                            </a>
-                        {% else %}
-                            <a href="#">
-                                {{ list.nom }}
-                            </a>
-                        {% endif %}
-                    </li>
-                {% endif %} 
-            {% endfor %}
+            <a href="{{ path('home') }}">
+                Accueil
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('app_produit_ajout') }}">
+                Ajouter
+            </a>
+        </li>
+        <li>        
             <a href="{{ path('app_logout')}}">
                 Deconnection
             </a>
