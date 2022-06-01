@@ -5,8 +5,16 @@ body {
 }
 
 @import "general/generalClass.scss";
+.flexCenter {
+    @include displayFlexCenter();
+    flex-direction: column;
+}
+.flexColumn {
+    @include displayFlexColumnOnly();
+}
 @import "nav/mainNav.scss";
 @import "logRegister/logRegister.scss";
 @import "contenairAndBox/contenairAndBox.scss";
 @import "produit/produitDetail.scss";
+@import "produit/ajoutProduit.scss";
 @import "footer/footer.scss";

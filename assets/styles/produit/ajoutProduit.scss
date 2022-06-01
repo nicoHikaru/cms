@@ -1,0 +1,16 @@
+.formAjoutProduit {
+    display: flex;
+    span:nth-child(2) {
+        margin-left: 15px;
+    }
+}
+.paddingAjoutFormProduit {
+    padding: 120px 80px
+}
+.backgroundAjoutForm {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+}
+.marginTopAjoutProduit {
+    margin-top: 20px;
+}
+@include inputForm();
