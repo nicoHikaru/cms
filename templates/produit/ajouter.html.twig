@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+<section class="contenair">
+    <div class="box flexCenter paddingAjoutFormProduit backgroundAjoutForm">
+        <h3>Ajouter un article</h3>
+        {{ form_start(form)}}
+
+            <div class="formAjoutProduit">
+                <span>{{form_row(form.nom)}}</span>
+            </div>
+
+            <div class="formAjoutProduit marginTopAjoutProduit">
+                <span>{{form_row(form.price)}}</span>
+                <span>{{form_row(form.reduction)}}</span>
+            </div>
+            
+            <div class="formAjoutProduit marginTopAjoutProduit">
+                <span>{{form_row(form.photo)}}</span>
+                <span>{{form_row(form.typeProduit)}}</span>
+            </div>
+        {{ form_end(form)}}
+    </div>
+</section>
+
+{% endblock %}
