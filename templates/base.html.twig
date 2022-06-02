@@ -18,6 +18,13 @@
        <nav id="nav">
             {% include("nav.html.twig") %}
        </nav>
+       <div class="flexCenter">
+            {% for message in app.flashes('success') %}
+                <div class="flashMessage">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        <div>
     </header>
 
     <body>
