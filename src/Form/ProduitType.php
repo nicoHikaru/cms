@@ -27,6 +27,9 @@ class ProduitType extends AbstractType
                         'message' => 'Saisir nom article',
                     ]),
                 ],
+                'attr' => array(
+                    'placeholder' => 'Saisir...',
+                )
             ])
             ->add('price',TextType::class,[
                 'required' => true,
@@ -35,9 +38,15 @@ class ProduitType extends AbstractType
                         'message' => 'Saisir prix article',
                     ]),
                 ],
+                'attr' => array(
+                    'placeholder' => 'Saisir...',
+                )
             ])
             ->add('reduction',TextType::class,[
                 'required' => false,
+                'attr' => array(
+                    'placeholder' => 'Saisir...',
+                )
             ])
             ->add('photo',FileType::class,[
                 'label' => 'photo article',
@@ -49,12 +58,14 @@ class ProduitType extends AbstractType
                     'required' => false,
             ])
             ->add('typeProduit',EntityType::class,[
+                'required' => false,
                 'class' => TypeProduits::class,
                 'query_builder' => function (EntityRepository $typeProduits) {
                     return $typeProduits->createQueryBuilder('t')
                         ->orderBy('t.nom', 'ASC');
                 },
                 'choice_label' => 'nom',
+                'placeholder' => 'choisir',
             ])
         ;
     }

@@ -3,24 +3,47 @@
 {% block title %}Produit{% endblock %}
 
 {% block body %}
-<section class="contenair">
+<section class="contenair flexColumn">
+    <h3>Ajouter un article</h3>
     <div class="box flexCenter paddingAjoutFormProduit backgroundAjoutForm">
-        <h3>Ajouter un article</h3>
+        
         {{ form_start(form)}}
 
             <div class="formAjoutProduit">
-                <span>{{form_row(form.nom)}}</span>
+                <div class="displayFlexStartColumn">
+                    <div>
+                        {{form_label(form.nom)}}
+                        <span style="color:red;">*</span>
+                    </div>
+                    {{form_widget(form.nom)}}
+                </div>
             </div>
 
             <div class="formAjoutProduit marginTopAjoutProduit">
-                <span>{{form_row(form.price)}}</span>
-                <span>{{form_row(form.reduction)}}</span>
+                <div class="displayFlexStartColumn">
+                    <div>
+                        {{form_label(form.price)}}
+                        <span style="color:red">*</span>
+                    </div>
+                    {{form_widget(form.price)}}
+                </div>
+                <div class="displayFlexStartColumn">
+                    {{form_label(form.reduction)}}
+                    {{form_widget(form.reduction)}}
+                </div>
             </div>
             
             <div class="formAjoutProduit marginTopAjoutProduit">
-                <span>{{form_row(form.photo)}}</span>
-                <span>{{form_row(form.typeProduit)}}</span>
+                <div class="displayFlexStartColumn">
+                    {{form_label(form.photo)}}
+                    {{form_widget(form.photo)}}
+                </div>
+                <div class="displayFlexStartColumn">
+                    {{form_label(form.typeProduit)}}
+                    {{form_widget(form.typeProduit)}}
+                </div>
             </div>
+            <input type="submit" class="button" name="submit" value="Valider"/>
         {{ form_end(form)}}
     </div>
 </section>
