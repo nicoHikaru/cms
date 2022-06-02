@@ -36,9 +36,13 @@ class Produits
     #[ORM\Column(type: 'string')]
     private $date;
 
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Cart::class)]
+    private $carts;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +148,36 @@ class Produits
     public function setDate(string $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+            $cart->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getProduit() === $this) {
+                $cart->setProduit(null);
+            }
+        }
 
         return $this;
     }
