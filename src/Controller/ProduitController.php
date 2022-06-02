@@ -4,21 +4,26 @@ namespace App\Controller;
 
 use App\Entity\Produits;
 use App\Form\ProduitType;
+use App\StaticData\UploadFile;
+use App\StaticData\DateAndTime;
 use App\Service\Nav\MainNavService;
+use App\Service\Produits\ProduitsService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 
 class ProduitController extends AbstractController
 {
     private MainNavService $mainNavService;
+    private ProduitsService $produitsService;
 
-    public function __construct(MainNavService $mainNavService)
+    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService)
     {
         $this->mainNavService = $mainNavService;
+        $this->produitsService = $produitsService;
     }
     #[Route('/produit/detail', name: 'app_produit_detail')]
     public function index(): Response
@@ -42,35 +47,22 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            // /** @var UploadedFile $publication */
-            $picture = $form->get('picture')->getData();
-
-            if ($picture !== null) {
-                $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
-
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
-
-                try {
-                    $picture->move(
-                        $this->getParameter('brochures_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-                //$produits->setPicture($newFilename);
-            }
            
-            
-            
-            // $dateTime = date('Y-m-d H:i');
-            // setlocale(LC_TIME, "fr_FR");
-            // $date = strftime("%Y-%m-%d %H:%M", strtotime($dateTime));
-            // $publication->setCreatedAt($date);
+            // /** @var UploadedFile $publication */
+            $picture = $form->get('photo')->getData();
 
-            return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+            $newFilename = UploadFile::upload($picture,$this,$slugger);
+            $dateTime = DateAndTime::now();
+            
+            $nom = $form->get('nom')->getData();
+            $price = (int)$form->get('price')->getData();
+            
+            $this->produitsService->savePhoto($produits,$nom,$price,$newFilename,$dateTime);
+            
+            
+            
+            $this->addFlash('success', 'article ajouter');
+            return $this->redirectToRoute('app_produit_ajout', [], Response::HTTP_SEE_OTHER);
         }
 
 

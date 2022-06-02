@@ -43,7 +43,7 @@ class ProduitType extends AbstractType
                 'label' => 'photo article',
                 'constraints' => [
                     new Image([
-                        'maxSize' => '5k'
+                        'maxSize' => '200k'
                     ])
                     ],
                     'required' => false,

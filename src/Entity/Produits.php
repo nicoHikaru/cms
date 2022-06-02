@@ -33,6 +33,9 @@ class Produits
     #[ORM\ManyToOne(targetEntity: TypeProduits::class, inversedBy: 'produits')]
     private $typeProduit;
 
+    #[ORM\Column(type: 'string')]
+    private $date;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
@@ -129,6 +132,18 @@ class Produits
     public function setTypeProduit(?TypeProduits $typeProduit): self
     {
         $this->typeProduit = $typeProduit;
+
+        return $this;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->date;
+    }
+
+    public function setDate(string $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
