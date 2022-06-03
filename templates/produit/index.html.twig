@@ -15,18 +15,18 @@
                         </svg>
                     </span>
                 </div>
-                <img src="{{ asset('img/tShirt.png') }}" />
+                <img src="{{ asset('uploads/articles/' ~ produit.photo ) }}" />
                 <div id="imgFooterProduit">autre image</div>
             </div>
         </div>
         <div class="produitDetails">
             <div>
-                <span>T-shirt</span>
+                <span>{{ produit.nom }}</span>
                 <span>ref: 3000</span>
             </div>
             <div class="boxPriceProduit">
                 <div id="priceProduit">
-                    20€
+                    {{ produit.price }}€
                 </div>
             </div>
             <div id="selectColor">
