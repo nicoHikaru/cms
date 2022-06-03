@@ -17,6 +17,11 @@ class ProduitsService
         return $this->produitsRepository->findAll();
     }
 
+    public function findById(int $id)
+    {
+        return $this->produitsRepository->findOneBy(array("id" => $id));
+    }
+
     public function savePhoto(Produits $produits,string $nom,int $price,$newFilename,$dateTime)
     {
         $produits->setNom($nom);

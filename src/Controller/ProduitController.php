@@ -25,12 +25,15 @@ class ProduitController extends AbstractController
         $this->mainNavService = $mainNavService;
         $this->produitsService = $produitsService;
     }
-    #[Route('/produit/detail', name: 'app_produit_detail')]
-    public function index(): Response
+    #[Route('/produit/detail/idProduit={idProduit}', name: 'app_produit_detail')]
+    public function index(Request $request,int $idProduit): Response
     {
         $nav = $this->mainNavService->findAll();
+        $getProduit = $this->produitsService->findById($idProduit);
+        
         return $this->render('produit/index.html.twig', [
-            'nav' => $nav
+            'nav' => $nav,
+            'produit'=> $getProduit
         ]);
     }
 
@@ -64,8 +67,6 @@ class ProduitController extends AbstractController
             $this->addFlash('success', 'article ajouter');
             return $this->redirectToRoute('app_produit_ajout', [], Response::HTTP_SEE_OTHER);
         }
-
-
 
         $nav = $this->mainNavService->findAll();
 
