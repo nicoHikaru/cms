@@ -12,11 +12,18 @@
       <ul>
         <li class="flexColumn">
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" placeholder="Saisir..."/>
+          <input type="email" name="email" id="email" placeholder="Saisir..." autocomplete="email" required autofocus/>
         </li>
         <li class="flexColumn">
           <label for="mdp">Mot de passe</label>
-           <input type="password" name="password" id="mdp" placeholder="Saisir..."/>
+           <input type="password" name="inputPassword" id="mdp" placeholder="Saisir..." required/>
+        </li>
+        <li>
+           <a href="{{ path('app_forgot_password_request')}}">Mot de passe oublié</a>
+            
+            <input type="hidden" name="_csrf_token"
+                value="{{ csrf_token('authenticate') }}"
+            >
         </li>
         <li id="liSub">
           <input type="submit" name="submit" id="btnValide" class="button" value="Valider" />
