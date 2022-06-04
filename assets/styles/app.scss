@@ -5,6 +5,7 @@ body {
 }
 
 @import "general/generalClass.scss";
+@import "modal/modal.scss";
 .flexCenter {
     @include displayFlexCenter();
     flex-direction: column;
