@@ -7,7 +7,22 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+    <h3>Se Connecter</h3>
+    <form method="POST">
+      <ul>
+        <li class="flexColumn">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Saisir..."/>
+        </li>
+        <li class="flexColumn">
+          <label for="mdp">Mot de passe</label>
+           <input type="password" name="password" id="mdp" placeholder="Saisir..."/>
+        </li>
+        <li id="liSub">
+          <input type="submit" name="submit" id="btnValide" class="button" value="Valider" />
+        </li>
+      </ul>
+    </form>
   </div>
 
 </div>
