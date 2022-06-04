@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Favoris;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Produits;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Favoris>
@@ -37,6 +39,31 @@ class FavorisRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function delete(User $user,Produits $produit)
+    {
+
+        $em =  $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $query = $qb->delete('App\Entity\Favoris', 'f')
+                    ->where('f.produit = :produit AND f.user = :user')
+                    ->setParameter('user', $user)
+                    ->setParameter('produit', $produit)
+                    ->getQuery();
+
+        $query->execute();
+    }
+
+    public function update(int $idProduit)
+    {
+        // $queryBuilder = $this->em->createQueryBuilder();
+        // $query = $queryBuilder->update('App\Entity\Favoris', 'f')
+        //         ->set('f.produit', ':produit')
+        //         ->where('f.id = :editId')
+        //         ->setParameter('produit', $idProduit)
+        //         ->getQuery();
+        // $result = $query->execute();
     }
 
 //    /**
