@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 class ProduitController extends AbstractController
@@ -34,12 +35,17 @@ class ProduitController extends AbstractController
         $this->userService = $userService;
     }
     #[Route('/produit/detail/idProduit={idProduit}', name: 'app_produit_detail')]
-    public function index(Request $request,int $idProduit): Response
+    public function index(Request $request,int $idProduit,AuthenticationUtils $authenticationUtils): Response
     {
         $nav = $this->mainNavService->findAll();
         $getProduit = $this->produitsService->findById($idProduit);
         $user = $this->getUser();
-       
+        
+         // get the login error if there is one
+         $error = $authenticationUtils->getLastAuthenticationError();
+         // last username entered by the user
+         $lastUsername = $authenticationUtils->getLastUsername();
+
         $favoris = null;
         if($user !== null) {
             $favoris = $this->favorisService->findByProduitAndUser($getProduit,$user);

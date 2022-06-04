@@ -20,6 +20,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
+    public const LOGIN_ROUTE_MODAL = 'app_produit_detail';
 
     private UrlGeneratorInterface $urlGenerator;
 
@@ -48,13 +49,18 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
+        // if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL) {
+        //     return new RedirectResponse($this->urlGenerator->generate('app_produit_detail'));
+        // }
         return new RedirectResponse($this->urlGenerator->generate('home'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string
     {
+        if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL) {
+            return $this->urlGenerator->generate(self::LOGIN_ROUTE_MODAL,['idProduit' => $request->attributes->get('idProduit')]);
+        }
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }
