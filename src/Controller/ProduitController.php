@@ -74,6 +74,7 @@ class ProduitController extends AbstractController
         $produit = $this->produitsService->findById($idProduit);
         $user = $this->userService->findById($idUser);
         $favoris = $this->favorisService->findByProduitAndUser($produit,$user);
+        $carts = $this->cartService->findAll(); 
 
         $bool = false;
         if($favoris === null) {
@@ -82,6 +83,19 @@ class ProduitController extends AbstractController
             $bool = true;
         } else {
             $this->favorisService->delete($user,$produit);
+        }
+
+        if($bool === true) {
+            $favoris = $this->favorisService->findAll();
+            foreach($carts as $cart) {
+                foreach($favoris as $favori) {
+                    if($cart->getProduit() === $favori->getProduit() && $cart->getUser() === $favori->getUser()) {
+                       if($favori->getCart() === null) {
+                            $this->favorisService->updateCartData($cart,$cart->getProduit(),$this->getUser());
+                       }
+                    }
+                }
+            }
         }
 
         $data = [
