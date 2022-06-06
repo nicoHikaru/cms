@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\Favoris;
 use App\Entity\Produits;
 use App\Form\ProduitType;
 use App\StaticData\UploadFile;
 use App\StaticData\DateAndTime;
+use App\Service\Cart\CartService;
 use App\Service\User\UserService;
 use App\Service\Nav\MainNavService;
 use App\Service\Favoris\FavorisService;
@@ -26,13 +28,15 @@ class ProduitController extends AbstractController
     private ProduitsService $produitsService;
     private FavorisService $favorisService;
     private UserService $userService;
+    private CartService $cartService;
 
-    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,FavorisService $favorisService,UserService $userService)
+    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,FavorisService $favorisService,UserService $userService,CartService $cartService)
     {
         $this->mainNavService = $mainNavService;
         $this->produitsService = $produitsService;
         $this->favorisService = $favorisService;
         $this->userService = $userService;
+        $this->cartService = $cartService;
     }
     #[Route('/produit/detail/idProduit={idProduit}', name: 'app_produit_detail')]
     public function index(Request $request,int $idProduit,AuthenticationUtils $authenticationUtils): Response
@@ -124,5 +128,53 @@ class ProduitController extends AbstractController
             'nav' => $nav,
             'form' => $form->createView()
         ]);
+    }
+
+    #[Route('produit/listeFavoris', name: 'app_produit_listeFavoris', methods: ['GET', 'POST'])]
+    public function listeFavoris(Request $request,SluggerInterface $slugger):Response
+    {
+        if(!$this->getUser()) {
+            return $this->redirectToRoute('home');
+        }
+        $nav = $this->mainNavService->findAll();
+        $favoris = $this->favorisService->findByUser($this->getUser());
+        
+        return $this->render('produit/listeFavoris.html.twig', [
+            'nav' => $nav,
+            'favoris' => $favoris,
+            
+        ]);
+
+    }
+
+     /**
+     * requete ajax return bool pour cart produit par user
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[Route('/produit/cart/{idProduit}/{idUser}', name: 'app_produit_cart', methods: ['GET','POST'])]
+    public function cart(int $idProduit,int $idUser)
+    {
+        $produit = $this->produitsService->findById($idProduit);
+        $user = $this->userService->findById($idUser);
+        $cart = $this->cartService->findByProduitAndUser($produit,$user);
+
+        $bool = false;
+        if($cart === null) {
+            $newInstance = new Cart();
+            $cart = $this->cartService->saveCart($newInstance,$user,$produit);
+            $this->favorisService->updateCartData($cart,$produit,$user);
+            $bool = true;
+        } else {
+            $this->favorisService->updateCartDataBecomeNull($produit,$user);
+            $this->cartService->delete($user,$produit);
+        }
+
+        $data = [
+            'favoris' => $bool,
+        ];
+        
+        return new JsonResponse($data);
     }
 }

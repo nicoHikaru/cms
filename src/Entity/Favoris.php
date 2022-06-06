@@ -19,6 +19,9 @@ class Favoris
     #[ORM\ManyToOne(targetEntity: Produits::class, inversedBy: 'favoris')]
     private $produit;
 
+    #[ORM\ManyToOne(targetEntity: Cart::class, inversedBy: 'favoris')]
+    private $cart;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Favoris
     public function setProduit(?Produits $produit): self
     {
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(?Cart $cart): self
+    {
+        $this->cart = $cart;
 
         return $this;
     }

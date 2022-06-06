@@ -1,6 +1,7 @@
 <?php
 namespace App\Service\Favoris;
 
+use App\Entity\Cart;
 use App\Entity\User;
 use App\Entity\Favoris;
 use App\Entity\Produits;
@@ -8,7 +9,7 @@ use App\Repository\FavorisRepository;
 
 class FavorisService
 {
-    private $produitsRepository;
+    private FavorisRepository $favorisRepository;
     public function __construct(FavorisRepository $favorisRepository)
     {
         $this->favorisRepository = $favorisRepository;
@@ -24,9 +25,25 @@ class FavorisService
         return $this->favorisRepository->findOneBy(array("id" => $id));
     }
 
-    public function update(int $idProduit)
+    public function findByUser(User $user)
     {
-        return $this->favorisRepository->update($idProduit);
+        return $this->favorisRepository->findBy(array("user" => $user));
+    }
+
+    // public function update(int $idProduit)
+    // {
+    //     return $this->favorisRepository->update($idProduit);
+    // }
+
+    public function updateCartData(Cart $cart ,Produits $produit,User $user)
+    {
+        return $this->favorisRepository->updateCartData($cart,$produit,$user);
+    }
+
+    public function updateCartDataBecomeNull(Produits $produit,User $user)
+    {
+        $cart = null;
+        return $this->favorisRepository->updateCartDataBecomeNull($cart,$produit,$user);
     }
 
     public function findByProduitAndUser(Produits $produit,User $user) {

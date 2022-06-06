@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Cart;
 use App\Entity\User;
 use App\Entity\Favoris;
 use App\Entity\Produits;
@@ -18,9 +19,11 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class FavorisRepository extends ServiceEntityRepository
 {
+   
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Favoris::class);
+        
     }
 
     public function add(Favoris $entity, bool $flush = false): void
@@ -55,15 +58,33 @@ class FavorisRepository extends ServiceEntityRepository
         $query->execute();
     }
 
-    public function update(int $idProduit)
+    public function updateCartData(Cart $cart ,Produits $produit,User $user)
     {
-        // $queryBuilder = $this->em->createQueryBuilder();
-        // $query = $queryBuilder->update('App\Entity\Favoris', 'f')
-        //         ->set('f.produit', ':produit')
-        //         ->where('f.id = :editId')
-        //         ->setParameter('produit', $idProduit)
-        //         ->getQuery();
-        // $result = $query->execute();
+       
+        $em =  $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        $query = $queryBuilder->update('App\Entity\Favoris', 'f')
+                ->set('f.cart', ':cart')
+                ->where('f.produit = :produit and f.user = :user')
+                ->setParameter('cart', $cart)
+                ->setParameter('produit', $produit)
+                ->setParameter('user', $user)
+                ->getQuery();
+        $result = $query->execute();
+    }
+
+    public function updateCartDataBecomeNull($cart ,Produits $produit,User $user)
+    {
+        $em =  $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder();
+        $query = $queryBuilder->update('App\Entity\Favoris', 'f')
+                ->set('f.cart', ':cart')
+                ->where('f.produit = :produit and f.user = :user')
+                ->setParameter('cart', $cart)
+                ->setParameter('produit', $produit)
+                ->setParameter('user', $user)
+                ->getQuery();
+        $result = $query->execute();
     }
 
 //    /**

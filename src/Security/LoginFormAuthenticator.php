@@ -49,15 +49,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-        // if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL) {
-        //     return new RedirectResponse($this->urlGenerator->generate('app_produit_detail'));
-        // }
+        if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL) {
+            return new RedirectResponse($this->urlGenerator->generate('app_produit_detail'));
+        }
         return new RedirectResponse($this->urlGenerator->generate('home'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string
     {
+        
         if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL) {
             return $this->urlGenerator->generate(self::LOGIN_ROUTE_MODAL,['idProduit' => $request->attributes->get('idProduit')]);
         }

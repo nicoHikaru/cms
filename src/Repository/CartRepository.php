@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Cart;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\User;
+use App\Entity\Produits;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Cart>
@@ -39,6 +41,19 @@ class CartRepository extends ServiceEntityRepository
         }
     }
 
+    public function delete(User $user,Produits $produit)
+    {
+
+        $em =  $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $query = $qb->delete('App\Entity\Cart', 'c')
+                    ->where('c.produit = :produit AND c.user = :user')
+                    ->setParameter('user', $user)
+                    ->setParameter('produit', $produit)
+                    ->getQuery();
+
+        $query->execute();
+    }
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */
