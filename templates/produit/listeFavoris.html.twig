@@ -18,7 +18,9 @@
                 {% for data in favoris %}
                     {% if data.produit.photo != null %}
                         <td class"flexCenter">
-                            <img src="{{ asset('uploads/articles/' ~ data.produit.photo) }}" width="50px" height="50px"/>
+                            <a href="{{ path('app_produit_detail' ,{'idProduit':data.produit.id})}}">
+                                <img src="{{ asset('uploads/articles/' ~ data.produit.photo) }}" width="50px" height="50px"/>
+                            </a>
                             <span>{{ data.produit.nom }}</span>
                         </td>
                     {% else %}
