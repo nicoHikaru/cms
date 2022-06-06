@@ -32,9 +32,14 @@ body {
         transition: 1.5s;
     }
 }
+.favoris {
+    border: 0;
+    background: transparent;
+}
 @import "nav/mainNav.scss";
 @import "logRegister/logRegister.scss";
 @import "contenairAndBox/contenairAndBox.scss";
 @import "produit/produitDetail.scss";
 @import "produit/ajoutProduit.scss";
+@import "produit/listeFavoris.scss";
 @import "footer/footer.scss";

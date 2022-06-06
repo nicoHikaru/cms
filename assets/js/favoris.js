@@ -37,16 +37,3 @@ if(favoris !== null) {
      getAuteurs();
    });
 }
-
-
-//  // crée un nouvel élément div
-//  var newSvg = document.createElement("svg");
-//  var newPath = document.createElement("path");
-//  // et lui donne un peu de contenu
-//  var newContent = document.createTextNode('Hi there and greetings!');
-//  // ajoute le nœud texte au nouveau div créé
-//  newSvg.appendChild(newPath);
-
-//  // ajoute le nouvel élément créé et son contenu dans le DOM
-//  var currentDiv = document.getElementById('div1');
-//  document.body.insertBefore(newDiv, currentDiv);

@@ -1,0 +1,24 @@
+.tableFavoris {
+    width: 100%;
+    padding: 15px 10px;
+}
+.tableFavorisTHead {
+    th {
+        border-bottom: 1px solid black;
+    }
+}
+.tableFavorisTbody {
+    td:nth-child(1) {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    td {
+        padding: 15px 10px;
+        background: rgba(211, 211, 211,0.3);
+    }
+}
+.background {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+}
