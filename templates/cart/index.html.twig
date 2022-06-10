@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+<section class="contenair">
+    <div class="boxCart">
+        <div class="listeCart">
+            <table border="0" class="tableCart background" width="100%">
+                <thead class="tableCartTHead">
+                    <th>Article</th>
+                    <th>Type</th>
+                    <th>Reduction</th>
+                    <th>Prix</th>
+                </thead>
+                <tbody class="tableCartTbody">
+                    {% for data in carts %}
+                        <td>
+                            <img src="{{ asset('uploads/articles/' ~ data.produit.photo) }}" class="imgArticles"/>
+                            {{ data.produit.nom}}
+                        </td>
+                        <td>
+                            {{ data.produit.typeProduit.nom }}
+                        </td>
+                        <td>
+                            {% if data.produit.reduction != null %}
+                                {{ data.produit.reduction }}
+                            {% else %}
+                                pas de réduction
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ data.produit.price }}
+                        </td>
+                    <tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="detailPrice background">
+            <table>
+                <thead>
+
+                </thead>
+                <tbody>
+                    <td>
+                        <div>
+                            <span>Produits</span>
+                            <span>(total prix)</span>
+                        </div>
+                        <div>
+                            <span>TVA</span>
+                            <span>prix TVA ou %</span>
+                        </div>
+                    </td>
+                <tr>
+                    <td>
+                        <div>
+                            <span>Total</span>
+                            <span>(total pric ttc)</span>
+                        </div>
+                        <button>Valider</button>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -24,6 +24,11 @@ class CartService
         return $this->cartRepository->findOneBy(array("id" => $id));
     }
 
+    // public function getListeCartForCurrentUser($user)
+    // {
+    //     return $this->cartRepository->findBy(array("user" => $user));
+    // }
+
     public function findByUser(User $user)
     {
         return $this->cartRepository->findBy(array("user" => $user));
