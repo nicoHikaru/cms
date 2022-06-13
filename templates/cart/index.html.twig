@@ -6,7 +6,7 @@
 <section class="contenair">
     <div class="boxCart">
         <div class="listeCart">
-            <table border="0" class="tableCart background" width="100%">
+            <table border="0" class="tableCart background">
                 <thead class="tableCartTHead">
                     <th>Article</th>
                     <th>Type</th>
@@ -20,7 +20,11 @@
                             {{ data.produit.nom}}
                         </td>
                         <td>
-                            {{ data.produit.typeProduit.nom }}
+                            {% if data.produit.typeProduit != null %}
+                                {{ data.produit.typeProduit.nom }}
+                            {% else %}
+                                
+                            {% endif %}
                         </td>
                         <td>
                             {% if data.produit.reduction != null %}
@@ -30,7 +34,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            {{ data.produit.price }}
+                            {{ data.produit.price }} euros
                         </td>
                     <tr>
                     {% endfor %}
@@ -38,28 +42,30 @@
             </table>
         </div>
         <div class="detailPrice background">
-            <table>
+            <table class="detailTable">
                 <thead>
 
                 </thead>
                 <tbody>
                     <td>
-                        <div>
+                        <div class="detailPar1">
                             <span>Produits</span>
-                            <span>(total prix)</span>
+                            <span>{{ totalAPayer }} euros</span>
                         </div>
-                        <div>
-                            <span>TVA</span>
-                            <span>prix TVA ou %</span>
+                        <div class="detailPar1 mt">
+                            <span>TVA 20%</span>
+                            <span>{{ tva }} euros</span>
                         </div>
                     </td>
                 <tr>
                     <td>
-                        <div>
+                        <div class="detailPar1 mt">
                             <span>Total</span>
-                            <span>(total pric ttc)</span>
+                            <span>{{ ttc }} euros</span>
                         </div>
-                        <button>Valider</button>
+                        <span class="flexRight">
+                            <button class="button mt">Payer</button>
+                        </span>
                     </td>
                 </tbody>
             </table>
