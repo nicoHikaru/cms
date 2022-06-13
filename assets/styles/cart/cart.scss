@@ -1,0 +1,47 @@
+.boxCart {
+    display: flex;
+    padding: 50px 30px;
+    width: 60%;
+}
+.listeCart {
+    width: 100%;
+}
+.tableCart {
+    width: 100%;
+    padding: 15px 10px;
+}
+.tableCartTHead {
+    th {
+        border-bottom: 1px solid black;
+    }
+}
+.tableCartTbody {
+    td:nth-child(1) {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    td {
+        padding: 15px 10px;
+        background: rgba(211, 211, 211,0.3);
+    }
+}
+.detailPrice {
+    width: 40%;
+    margin-left: 5px;
+    padding:15px 20px;
+}
+.detailTable {
+    width: 100%;
+    color:rgb(163, 158, 158);
+} 
+.detailPar1 {
+    @include displayFlexSpanceBetween();
+    width: 100%;
+}
+.mt{
+    margin-top:15px;
+}
+.flexRight {
+    @include displayFlexCenter();
+}
