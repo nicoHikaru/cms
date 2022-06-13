@@ -1,6 +1,8 @@
 <?php
 namespace App\Service\Produits;
 
+use App\Entity\Cart;
+use App\Entity\User;
 use App\Entity\Produits;
 use App\Repository\ProduitsRepository;
 
@@ -21,6 +23,7 @@ class ProduitsService
     {
         return $this->produitsRepository->findOneBy(array("id" => $id));
     }
+
 
     public function savePhoto(Produits $produits,string $nom,int $price,$newFilename,$dateTime)
     {

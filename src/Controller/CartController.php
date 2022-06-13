@@ -36,9 +36,15 @@ class CartController extends AbstractController
     {
         $user = $this->getUser();
         $carts = $this->cartService->findByUser($user);
-
+        $total = $this->cartService->totalAPayer($user);
+        $tva = $this->cartService->tva($total,0.2);
+       
+        $ttc = $total + $tva;
         return $this->render('cart/index.html.twig', [
-            "carts" => $carts
+            "carts" => $carts,
+            "totalAPayer" => $total,
+            "ttc" => $ttc,
+            "tva" => $tva,
         ]);
     }
 }

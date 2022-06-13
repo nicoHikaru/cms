@@ -21,6 +21,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
     public const LOGIN_ROUTE_MODAL = 'app_produit_detail';
+    public const LOGIN_ROUTE_MODAL_HOME = 'home';
 
     private UrlGeneratorInterface $urlGenerator;
 
@@ -50,7 +51,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
         if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL) {
-            return new RedirectResponse($this->urlGenerator->generate('app_produit_detail',['idProduit' => $request->attributes->get('idProduit')]));
+            return new RedirectResponse($this->urlGenerator->generate(self::LOGIN_ROUTE_MODAL,['idProduit' => $request->attributes->get('idProduit')]));
+        }
+        if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL_HOME) {
+            return new RedirectResponse($this->urlGenerator->generate(self::LOGIN_ROUTE_MODAL_HOME));
         }
         return new RedirectResponse($this->urlGenerator->generate('home'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
@@ -61,6 +65,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         
         if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL) {
             return $this->urlGenerator->generate(self::LOGIN_ROUTE_MODAL,['idProduit' => $request->attributes->get('idProduit')]);
+        }
+        if($request->attributes->get('_route') === self::LOGIN_ROUTE_MODAL_HOME) {
+            return $this->urlGenerator->generate(self::LOGIN_ROUTE_MODAL_HOME);
         }
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
