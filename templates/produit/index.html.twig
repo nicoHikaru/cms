@@ -18,6 +18,12 @@
                                 </svg>
                             </button>
                         </form>
+                         <input type="hidden" id="produitId" value="{{ produit.id }}" />
+                        {% if app.user is defined and app.user != null %}
+                            <input type="hidden" id="userId" value="{{ app.user.id }}" />
+                        {% else %}
+                            <input type="hidden" id="userId" value="none" />
+                        {% endif %}
                     {% else %}
                         {% if app.user is defined and app.user != null %}
                             <form method="POST">
