@@ -30,18 +30,17 @@ class HomeController extends AbstractController
     {
         $nav = $this->mainNavService->findAll();
         $getProduits = $this->produitsService->findAll();
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
         $produitsInCart = [];
-
-         // get the login error if there is one
-         $error = $authenticationUtils->getLastAuthenticationError();
-         // last username entered by the user
-         $lastUsername = $authenticationUtils->getLastUsername();
-
-
         if($this->getUser()) {
             $produitsInCart = $this->cartService->getProduitsInCart($this->getUser(),$getProduits);
         }
-        
+        //dd($getProduits,$produitsInCart);
         
         return $this->render('home/index.html.twig', [
             'nav' => $nav,

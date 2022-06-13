@@ -54,7 +54,7 @@ class ProduitController extends AbstractController
         if($user !== null) {
             $favoris = $this->favorisService->findByProduitAndUser($getProduit,$user);
         }
-        
+       
         return $this->render('produit/index.html.twig', [
             'nav' => $nav,
             'produit'=> $getProduit,

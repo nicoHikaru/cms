@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Produits;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Cart;
 
 /**
  * @extends ServiceEntityRepository<Produits>
@@ -37,6 +39,26 @@ class ProduitsRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllAndProduitInCart(User $user,Cart $cart)
+    {
+    //     return $this->createQueryBuilder('p')
+    //        ->andWhere('p.exampleField = :val')
+    //        ->setParameter('val', $value)
+    //        ->orderBy('p.id', 'ASC')
+    //        ->setMaxResults(10)
+    //        ->getQuery()
+    //        ->getResult()
+    //    ;
+        $qb = $this->createQueryBuilder('p');
+        $query = $qb
+            ->select('produits')
+            ->from(' App\Entity\Cart', 'cart')
+            ->leftJoin('cart.id', 'c')
+            ->where('user.id = :userId')
+            ->setParameters(array(':userId' => $user->getId()))
+            ->getQuery();
     }
 
 //    /**

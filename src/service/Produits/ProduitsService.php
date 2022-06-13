@@ -24,6 +24,10 @@ class ProduitsService
         return $this->produitsRepository->findOneBy(array("id" => $id));
     }
 
+    public function findAllAndProduitInCart(User $user,Cart $cart)
+    {
+        return $this->produitsRepository->findAllAndProduitInCart($user,$cart);
+    }
 
     public function savePhoto(Produits $produits,string $nom,int $price,$newFilename,$dateTime)
     {
