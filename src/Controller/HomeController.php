@@ -40,12 +40,13 @@ class HomeController extends AbstractController
         if($this->getUser()) {
             $produitsInCart = $this->cartService->getProduitsInCart($this->getUser(),$getProduits);
         }
-        //dd($getProduits,$produitsInCart);
         
         return $this->render('home/index.html.twig', [
             'nav' => $nav,
             'produits' => $getProduits,
-            'produitsInCart' => $produitsInCart
+            'produitsInCart' => $produitsInCart,
+            'last_username' => $lastUsername, 
+            'error' => $error,
         ]);
     }
 }

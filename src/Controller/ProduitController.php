@@ -58,7 +58,9 @@ class ProduitController extends AbstractController
         return $this->render('produit/index.html.twig', [
             'nav' => $nav,
             'produit'=> $getProduit,
-            'favoris' => $favoris
+            'favoris' => $favoris,
+            'last_username' => $lastUsername, 
+            'error' => $error,
         ]);
     }
 
