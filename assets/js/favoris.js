@@ -43,7 +43,7 @@ if(formFavorisHome !== null) {
 
       favoris.addEventListener('click',(event) => {
          event.preventDefault();
-         console.log(favoris.children[1].value,userId.value)
+         
          async function getFavorisHome(){
             if(userId.value !== "none") {
                let rep = await fetch('/produit/favoris/' + favoris.children[1].value + '/' + userId.value , { method: 'GET' });

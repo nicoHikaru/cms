@@ -1,7 +1,7 @@
 let carts = document.querySelectorAll('.carts');
 let formCarts = document.querySelectorAll('.formCarts');
 let formCartsHome = document.querySelectorAll('.formCartsHome');
-let userId = document.getElementById('userId');
+let userId = document.querySelector('.userId');
 let fav = document.getElementById('fav');
 
 if(formCarts !== null) {
