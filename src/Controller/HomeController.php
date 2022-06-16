@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\Cart\CartService;
 use App\Service\Nav\MainNavService;
+use App\Service\Favoris\FavorisService;
 use App\Service\Produits\ProduitsService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,12 +17,14 @@ class HomeController extends AbstractController
     private MainNavService $mainNavService;
     private ProduitsService $produitsService;
     private CartService $cartService;
+    private FavorisService $favorisService;
 
-    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,CartService $cartService)
+    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,CartService $cartService,FavorisService $favorisService)
     {
         $this->mainNavService = $mainNavService;
         $this->produitsService = $produitsService;
         $this->cartService = $cartService;
+        $this->favorisService = $favorisService;
     }
 
 
@@ -31,22 +34,43 @@ class HomeController extends AbstractController
         $nav = $this->mainNavService->findAll();
         $getProduits = $this->produitsService->findAll();
 
+        $displayProduit = [];
+        foreach($getProduits as $produit) {
+            $displayProduit[] = array($produit,null);
+        }
+
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
+       
         $produitsInCart = [];
+        $favoris = [];
         if($this->getUser()) {
             $produitsInCart = $this->cartService->getProduitsInCart($this->getUser(),$getProduits);
+           
+            foreach($getProduits as $content) {
+                $favoris[] = $this->favorisService->findByProduitAndUser($content,$this->getUser());
+            }
+           
+            foreach($getProduits as $key => $produit) {
+                foreach($favoris as $favContent) {
+                    if($favContent !== null && $produit->getId() === $favContent->getProduit()->getId()) {
+                        $displayProduit[$key][1] = $favContent;
+                    }
+                } 
+            }
         }
-        
+       
+       
         return $this->render('home/index.html.twig', [
             'nav' => $nav,
-            'produits' => $getProduits,
+            'produits' => $displayProduit,
             'produitsInCart' => $produitsInCart,
             'last_username' => $lastUsername, 
             'error' => $error,
+            'favoris' => $favoris
         ]);
     }
 }
