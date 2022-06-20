@@ -140,7 +140,7 @@ class ProduitController extends AbstractController
 
         $nav = $this->mainNavService->findAll();
 
-        return $this->render('produit/ajouter.html.twig', [
+        return $this->render('produit/admin/ajouter.html.twig', [
             'nav' => $nav,
             'form' => $form->createView()
         ]);
