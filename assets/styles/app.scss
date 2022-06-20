@@ -36,6 +36,21 @@ body {
     border: 0;
     background: transparent;
 }
+.messageEmpty {
+    @include displayFlexColumnOnly();
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    svg {
+        width: 100px;
+        height:100px;
+        color: lightgray;
+    }
+    span {
+        color: lightgray;
+        font-size: 2.5em;
+    }
+}
 @import "sideBar/sideBar.scss";
 @import "nav/mainNav.scss";
 @import "logRegister/logRegister.scss";
