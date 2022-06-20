@@ -6,51 +6,6 @@ body {
 
 @import "general/generalClass.scss";
 @import "modal/modal.scss";
-.flexCenter {
-    @include displayFlexCenter();
-    flex-direction: column;
-}
-.displayFlexStartColumn {
-    @include displayFlexStart();
-    flex-direction: column;
-}
-.flexColumn {
-    @include displayFlexColumnOnly();
-}
-.button {
-    background: rgb(51, 181, 7);
-    border: 0;
-    padding: 12px 20px;
-    border-radius: 5px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
-    color: white;
-    font-size: 1em;
-    margin-top: 5px;
-    &:hover {
-        cursor: pointer;
-        background: rgb(34, 134, 0);
-        transition: 1.5s;
-    }
-}
-.favoris {
-    border: 0;
-    background: transparent;
-}
-.messageEmpty {
-    @include displayFlexColumnOnly();
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
-    svg {
-        width: 100px;
-        height:100px;
-        color: lightgray;
-    }
-    span {
-        color: lightgray;
-        font-size: 2.5em;
-    }
-}
 @import "sideBar/sideBar.scss";
 @import "nav/mainNav.scss";
 @import "logRegister/logRegister.scss";

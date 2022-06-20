@@ -1,6 +1,7 @@
 .sideBar {
     background: rgba(126, 1, 203, 0.5);
     position: absolute;
+    top:5%;
     width: 15%;
     height: 100%;
     //@include displayFlexCenter();
@@ -20,7 +21,7 @@
             background: rgba(0, 0, 0,0.3);
             padding: 0px 20px;
             overflow: hidden;
-            width: 80%;
+            margin-right: 15px;
             border-radius: 10px;
             &:hover {
                 cursor: pointer;
