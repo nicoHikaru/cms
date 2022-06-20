@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\Cart\CartService;
+use App\Service\User\UserService;
 use App\Service\Nav\MainNavService;
 use App\Service\Favoris\FavorisService;
 use App\Service\Produits\ProduitsService;
@@ -18,19 +19,22 @@ class HomeController extends AbstractController
     private ProduitsService $produitsService;
     private CartService $cartService;
     private FavorisService $favorisService;
+    private UserService $userService;
 
-    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,CartService $cartService,FavorisService $favorisService)
+    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,CartService $cartService,FavorisService $favorisService,UserService $userService)
     {
         $this->mainNavService = $mainNavService;
         $this->produitsService = $produitsService;
         $this->cartService = $cartService;
         $this->favorisService = $favorisService;
+        $this->userService = $userService;
     }
 
 
     #[Route('/', name: 'home')]
     public function index(Request $request,AuthenticationUtils $authenticationUtils): Response
     {
+
         $nav = $this->mainNavService->findAll();
         $getProduits = $this->produitsService->findAll();
 

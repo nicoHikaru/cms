@@ -17,4 +17,8 @@ class UserService
     {
         return $this->userRepository->findOneBy(array('id' => $id));
     }
+
+    public function setRoles(array $roles,User $user) {
+        return $this->userRepository->setRoles($roles,$user);
+    }
 }

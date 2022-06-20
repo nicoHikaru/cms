@@ -193,4 +193,21 @@ class ProduitController extends AbstractController
         
         return new JsonResponse($data);
     }
+
+    #[Route('/produit/liste', name: 'app_produit_liste')]
+    public function liste(Request $request): Response
+    {
+        $nav = $this->mainNavService->findAll();
+        $getProduit = $this->produitsService->findAll();
+        $user = $this->getUser();
+        
+        if($user === null or empty($user)) {
+            return $this->redirectToRoute('home');
+        }
+       
+        return $this->render('produit/admin/liste.html.twig', [
+            'nav' => $nav,
+            'produit'=> $getProduit,
+        ]);
+    }
 }
