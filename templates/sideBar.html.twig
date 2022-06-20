@@ -1,0 +1,39 @@
+<section class="sideBar">
+    <div class="liste">
+        <h2>Gestion Administrateur</h2>
+        <ul>
+            <li>
+                <h3>info utilisateur</h3>
+            </li>
+            <li>
+                <a href="#">
+                    <span>Profil</span>
+                </li>
+            <li>
+                <a href="#">
+                    <span>Parametre securité</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('app_logout')}}">
+                    <span class="deco">Déconnexion</span>
+                </a>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <h3>Gestion article</h3>
+            </li>
+            <li>
+                <a href="{{ path('app_produit_ajout') }}">
+                    <span>Ajouter</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('app_produit_liste') }}">
+                    <span>Liste</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
