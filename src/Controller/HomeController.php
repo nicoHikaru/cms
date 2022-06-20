@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use RolesUser;
 use App\Service\Cart\CartService;
 use App\Service\User\UserService;
 use App\Service\Nav\MainNavService;
@@ -37,7 +38,9 @@ class HomeController extends AbstractController
 
         $nav = $this->mainNavService->findAll();
         $getProduits = $this->produitsService->findAll();
-
+        
+        $rolesAdmin = RolesUser::rolesAdmin();
+        
         $displayProduit = [];
         foreach($getProduits as $produit) {
             $displayProduit[] = array($produit,null);
@@ -74,7 +77,8 @@ class HomeController extends AbstractController
             'produitsInCart' => $produitsInCart,
             'last_username' => $lastUsername, 
             'error' => $error,
-            'favoris' => $favoris
+            'favoris' => $favoris,
+            'rolesAdmin' => $rolesAdmin
         ]);
     }
 }
