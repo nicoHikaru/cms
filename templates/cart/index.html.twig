@@ -6,70 +6,79 @@
 <section class="contenair">
     <div class="boxCart">
         <div class="listeCart">
-            <table border="0" class="tableCart background">
-                <thead class="tableCartTHead">
-                    <th>Article</th>
-                    <th>Type</th>
-                    <th>Reduction</th>
-                    <th>Prix</th>
-                </thead>
-                <tbody class="tableCartTbody">
-                    {% for data in carts %}
+            {% if carts is empty %}
+                <div class="messageEmpty">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                    <span>vous n'avez pas encore ajouté d'artcile(s).</span>
+                </div>
+            {% else %}
+                <table border="0" class="tableCart background">
+                    <thead class="tableCartTHead">
+                        <th>Article</th>
+                        <th>Type</th>
+                        <th>Reduction</th>
+                        <th>Prix</th>
+                    </thead>
+                    <tbody class="tableCartTbody">
+                        {% for data in carts %}
+                            <td>
+                                <img src="{{ asset('uploads/articles/' ~ data.produit.photo) }}" class="imgArticles"/>
+                                {{ data.produit.nom}}
+                            </td>
+                            <td>
+                                {% if data.produit.typeProduit != null %}
+                                    {{ data.produit.typeProduit.nom }}
+                                {% else %}
+                                    
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if data.produit.reduction != null %}
+                                    {{ data.produit.reduction }}
+                                {% else %}
+                                    pas de réduction
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ data.produit.price }} euros
+                            </td>
+                        <tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="detailPrice background">
+                <table class="detailTable">
+                    <thead>
+
+                    </thead>
+                    <tbody>
                         <td>
-                            <img src="{{ asset('uploads/articles/' ~ data.produit.photo) }}" class="imgArticles"/>
-                            {{ data.produit.nom}}
-                        </td>
-                        <td>
-                            {% if data.produit.typeProduit != null %}
-                                {{ data.produit.typeProduit.nom }}
-                            {% else %}
-                                
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if data.produit.reduction != null %}
-                                {{ data.produit.reduction }}
-                            {% else %}
-                                pas de réduction
-                            {% endif %}
-                        </td>
-                        <td>
-                            {{ data.produit.price }} euros
+                            <div class="detailPar1">
+                                <span>Produits</span>
+                                <span>{{ totalAPayer }} euros</span>
+                            </div>
+                            <div class="detailPar1 mt">
+                                <span>TVA 20%</span>
+                                <span>{{ tva }} euros</span>
+                            </div>
                         </td>
                     <tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="detailPrice background">
-            <table class="detailTable">
-                <thead>
-
-                </thead>
-                <tbody>
-                    <td>
-                        <div class="detailPar1">
-                            <span>Produits</span>
-                            <span>{{ totalAPayer }} euros</span>
-                        </div>
-                        <div class="detailPar1 mt">
-                            <span>TVA 20%</span>
-                            <span>{{ tva }} euros</span>
-                        </div>
-                    </td>
-                <tr>
-                    <td>
-                        <div class="detailPar1 mt">
-                            <span>Total</span>
-                            <span>{{ ttc }} euros</span>
-                        </div>
-                        <span class="flexRight">
-                            <button class="button mt">Payer</button>
-                        </span>
-                    </td>
-                </tbody>
-            </table>
-        </div>
+                        <td>
+                            <div class="detailPar1 mt">
+                                <span>Total</span>
+                                <span>{{ ttc }} euros</span>
+                            </div>
+                            <span class="flexRight">
+                                <button class="button mt">Payer</button>
+                            </span>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
     </div>
 </section>
 {% endblock %}
