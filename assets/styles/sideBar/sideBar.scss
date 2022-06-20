@@ -1,0 +1,44 @@
+.sideBar {
+    background: rgba(126, 1, 203, 0.5);
+    position: absolute;
+    width: 15%;
+    height: 100%;
+    //@include displayFlexCenter();
+    ul {
+        list-style-type: none;
+        li:nth-child(1) {
+            background: transparent !important;
+            h3 {
+                margin-left: -10px;
+            }
+        }
+        li:nth-child(2) {
+            margin-top: -10px;
+        }
+        li {
+            margin-top: 5px;
+            background: rgba(0, 0, 0,0.3);
+            padding: 0px 20px;
+            overflow: hidden;
+            width: 80%;
+            border-radius: 10px;
+            &:hover {
+                cursor: pointer;
+                background: rgba(0, 0, 0,0.8);
+            }
+            a {
+                padding: 10px 100px;
+                text-decoration: none;
+                color: white;
+                span {
+                    display: flex;
+                justify-content: flex-start;
+                }
+            }
+        }
+        
+    }
+}
+.deco {
+    color: red;
+}

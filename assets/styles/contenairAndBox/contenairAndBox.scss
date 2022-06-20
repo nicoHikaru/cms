@@ -1,7 +1,8 @@
 .contenair {
-    width: 100%;
-    //height: auto;
+    width: 60%;
+    height: auto;
     @include displayFlexCenter();
+    margin-left: 20%;
 }
 .box {
     @include displayFlexWrap();
