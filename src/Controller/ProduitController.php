@@ -15,6 +15,7 @@ use App\Service\User\UserService;
 use App\Service\Nav\MainNavService;
 use App\Service\Favoris\FavorisService;
 use App\Service\Produits\ProduitsService;
+use App\Repository\TypeProduitsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,14 +32,16 @@ class ProduitController extends AbstractController
     private FavorisService $favorisService;
     private UserService $userService;
     private CartService $cartService;
+    private TypeProduitsRepository $typeProduitsRepository;
 
-    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,FavorisService $favorisService,UserService $userService,CartService $cartService)
+    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,FavorisService $favorisService,UserService $userService,CartService $cartService,TypeProduitsRepository $typeProduitsRepository)
     {
         $this->mainNavService = $mainNavService;
         $this->produitsService = $produitsService;
         $this->favorisService = $favorisService;
         $this->userService = $userService;
         $this->cartService = $cartService;
+        $this->typeProduitsRepository = $typeProduitsRepository;
     }
     #[Route('/produit/detail/idProduit={idProduit}', name: 'app_produit_detail')]
     public function index(Request $request,int $idProduit,AuthenticationUtils $authenticationUtils): Response
@@ -203,18 +206,30 @@ class ProduitController extends AbstractController
     #[Route('/produit/liste', name: 'app_produit_liste')]
     public function liste(Request $request): Response
     {
+       
         $nav = $this->mainNavService->findAll();
         $getProduit = $this->produitsService->findAll();
         $user = $this->getUser();
+
         $rolesAdmin = RolesUser::rolesAdmin();
+        $typesProduits = $this->typeProduitsRepository->findAll();
+        
         if($user === null or empty($user)) {
             return $this->redirectToRoute('home');
+        }
+        
+        $req = $request->request;
+        if($req->get('choiceType') == true) {
+            $type = $req->get('choiceType');
+            $typeProduit = $this->typeProduitsRepository->findOneByNom($type);
+            $getProduit = $this->produitsService->findByType($typeProduit);
         }
        
         return $this->render('produit/admin/liste.html.twig', [
             'nav' => $nav,
             'produit'=> $getProduit,
-            'rolesAdmin' => $rolesAdmin
+            'rolesAdmin' => $rolesAdmin,
+            'typesProduits' => $typesProduits
         ]);
     }
 }
