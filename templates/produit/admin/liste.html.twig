@@ -5,11 +5,19 @@
 {% block body %}
 <section class="contenair flexColumn">
     <h3>Liste Articles</h3>
-    <div>
-        ici champ de recherche
+    <div class="formChoiceArticle background">
+        <form method="post">
+            <label for="pet-select">Choisir type article(s):</label>
+            <select name="choiceType" id="choiceType">
+                <option value="">--Choisir--</option>
+                {% for data in  typesProduits %}
+                    <option value="{{data}}">{{data}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" name="submit" value="valider" />
+        </form>
     </div>
     <div class="box">
-
             {% for data in produit %}
                 <div class="card">
                     <span class="cardPhotoAndCart">
