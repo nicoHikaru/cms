@@ -3,7 +3,7 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-<section class="contenair hauteur">
+<section class="contenair hauteur justifyContentStartCart widthBoxCart">
     <div class="boxCart">
         <div class="listeCart">
             {% if carts is empty %}
@@ -14,7 +14,7 @@
                     <span>vous n'avez pas encore ajouté d'artcile(s).</span>
                 </div>
             {% else %}
-                <table border="0" class="tableCart background">
+                <table border="0" class="tableCart">
                     <thead class="tableCartTHead">
                         <th>Article</th>
                         <th>Type</th>
@@ -49,7 +49,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="detailPrice background">
+            <div class="detailPrice">
                 <table class="detailTable">
                     <thead>
 
