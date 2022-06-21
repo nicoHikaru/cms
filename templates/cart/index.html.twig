@@ -4,6 +4,7 @@
 
 {% block body %}
 <section class="contenair hauteur justifyContentStartCart widthBoxCart">
+    <h2>Panier</h2>
     <div class="boxCart">
         <div class="listeCart">
             {% if carts is empty %}
@@ -77,8 +78,8 @@
                         </td>
                     </tbody>
                 </table>
-            </div>
             {% endif %}
+        </div>
     </div>
 </section>
 {% endblock %}
