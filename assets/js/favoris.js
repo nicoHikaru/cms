@@ -2,15 +2,12 @@ let favoris = document.querySelector('.favoris');
 let formFavorisHome = document.querySelectorAll('.formFavorisHome');
 let produitId = document.getElementById('produitId');
 let userId = document.querySelector('.userId');
-// let fav = document.getElementById('fav');
-
-console.log(userId);
 
 if(favoris !== null) {
    favoris.addEventListener('click',(event) => {
       event.preventDefault();
       
-      async function getAuteurs(){
+      async function getFavoris(){
          if(userId.value !== "none") {
             let rep = await fetch('/produit/favoris/' + produitId.value + '/' + userId.value , { method: 'GET' });
             let reponse = await rep.json();
@@ -34,7 +31,7 @@ if(favoris !== null) {
          }
          
      }
-     getAuteurs();
+     getFavoris();
    });
 }
 
