@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use RolesUser;
 use App\Entity\Cart;
 use App\Entity\Favoris;
 use App\Entity\Produits;
@@ -45,10 +46,12 @@ class ProduitController extends AbstractController
         $getProduit = $this->produitsService->findById($idProduit);
         $user = $this->getUser();
         
-         // get the login error if there is one
-         $error = $authenticationUtils->getLastAuthenticationError();
-         // last username entered by the user
-         $lastUsername = $authenticationUtils->getLastUsername();
+        $rolesAdmin = RolesUser::rolesAdmin();
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         $favoris = null;
         if($user !== null) {
@@ -61,6 +64,7 @@ class ProduitController extends AbstractController
             'favoris' => $favoris,
             'last_username' => $lastUsername, 
             'error' => $error,
+            'rolesAdmin' => $rolesAdmin
         ]);
     }
 
@@ -115,7 +119,7 @@ class ProduitController extends AbstractController
         }
 
         $produits = new Produits();
-        
+        $rolesAdmin = RolesUser::rolesAdmin();
         $form = $this->createForm(ProduitType::class, $produits, []);
         $form->handleRequest($request);
 
@@ -142,7 +146,8 @@ class ProduitController extends AbstractController
 
         return $this->render('produit/admin/ajouter.html.twig', [
             'nav' => $nav,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'rolesAdmin' => $rolesAdmin
         ]);
     }
 
@@ -154,11 +159,11 @@ class ProduitController extends AbstractController
         }
         $nav = $this->mainNavService->findAll();
         $favoris = $this->favorisService->findByUser($this->getUser());
-        
+        $rolesAdmin = RolesUser::rolesAdmin();
         return $this->render('produit/listeFavoris.html.twig', [
             'nav' => $nav,
             'favoris' => $favoris,
-            
+            'rolesAdmin' => $rolesAdmin
         ]);
 
     }
@@ -200,7 +205,7 @@ class ProduitController extends AbstractController
         $nav = $this->mainNavService->findAll();
         $getProduit = $this->produitsService->findAll();
         $user = $this->getUser();
-        
+        $rolesAdmin = RolesUser::rolesAdmin();
         if($user === null or empty($user)) {
             return $this->redirectToRoute('home');
         }
@@ -208,6 +213,7 @@ class ProduitController extends AbstractController
         return $this->render('produit/admin/liste.html.twig', [
             'nav' => $nav,
             'produit'=> $getProduit,
+            'rolesAdmin' => $rolesAdmin
         ]);
     }
 }

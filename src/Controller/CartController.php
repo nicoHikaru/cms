@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use RolesUser;
 use App\Service\Cart\CartService;
 use App\Service\User\UserService;
 use App\Service\Nav\MainNavService;
@@ -35,6 +36,8 @@ class CartController extends AbstractController
     public function index(Request $request): Response
     {
         $user = $this->getUser();
+        $rolesAdmin = RolesUser::rolesAdmin();
+        
         $carts = $this->cartService->findByUser($user);
         $total = $this->cartService->totalAPayer($user);
         $tva = $this->cartService->tva($total,0.2);
@@ -45,6 +48,7 @@ class CartController extends AbstractController
             "totalAPayer" => $total,
             "ttc" => $ttc,
             "tva" => $tva,
+            'rolesAdmin' => $rolesAdmin
         ]);
     }
 }
