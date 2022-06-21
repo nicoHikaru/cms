@@ -45,3 +45,10 @@
 .flexRight {
     @include displayFlexCenter();
 }
+.justifyContentStartCart {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.widthBoxCart {
+    width:90%;
+}

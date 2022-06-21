@@ -14,3 +14,4 @@ import './bootstrap';
 import './js/favoris.js';
 import './js/cart.js';
 import './js/modal.js';
+import './js/sideBar.js';
