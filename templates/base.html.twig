@@ -14,7 +14,7 @@
         {% endblock %}
     </head>
     
-    {% if app.user != null and app.user.roles[0] == rolesAdmin %}
+    {% if app.user != null and rolesAdmin is defined and app.user.roles[0] == rolesAdmin %}
         {% include('sideBar.html.twig') %}
     {% endif %}
     
