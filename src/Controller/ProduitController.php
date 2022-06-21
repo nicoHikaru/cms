@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
-use RolesUser;
+
 use App\Entity\Cart;
 use App\Entity\Favoris;
 use App\Entity\Produits;
 use App\Form\ProduitType;
+use App\StaticData\RolesUser;
 use App\StaticData\UploadFile;
 use App\StaticData\DateAndTime;
 use App\Service\Cart\CartService;

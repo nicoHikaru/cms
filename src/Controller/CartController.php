@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use RolesUser;
+
+use App\StaticData\RolesUser;
 use App\Service\Cart\CartService;
 use App\Service\User\UserService;
 use App\Service\Nav\MainNavService;
