@@ -197,7 +197,7 @@ class ProduitController extends AbstractController
         }
 
         $data = [
-            'favoris' => $bool,
+            'cart' => $bool,
         ];
         
         return new JsonResponse($data);
