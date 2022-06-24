@@ -172,37 +172,6 @@ class ProduitController extends AbstractController
 
     }
 
-     /**
-     * requete ajax return bool pour cart produit par user
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    #[Route('/produit/cart/{idProduit}/{idUser}', name: 'app_produit_cart', methods: ['GET','POST'])]
-    public function cart(int $idProduit,int $idUser)
-    {
-        $produit = $this->produitsService->findById($idProduit);
-        $user = $this->userService->findById($idUser);
-        $cart = $this->cartService->findByProduitAndUser($produit,$user);
-
-        $bool = false;
-        if($cart === null) {
-            $newInstance = new Cart();
-            $cart = $this->cartService->saveCart($newInstance,$user,$produit);
-            $this->favorisService->updateCartData($cart,$produit,$user);
-            $bool = true;
-        } else {
-            $this->favorisService->updateCartDataBecomeNull($produit,$user);
-            $this->cartService->delete($user,$produit);
-        }
-
-        $data = [
-            'cart' => $bool,
-        ];
-        
-        return new JsonResponse($data);
-    }
-
     #[Route('/produit/liste', name: 'app_produit_liste')]
     public function liste(Request $request): Response
     {
