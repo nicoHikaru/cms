@@ -58,6 +58,19 @@ class FavorisRepository extends ServiceEntityRepository
         $query->execute();
     }
 
+    public function deleteFavoris(Produits $produit)
+    {
+
+        $em =  $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $query = $qb->delete('App\Entity\Favoris', 'f')
+                    ->where('f.produit = :produit')
+                    ->setParameter('produit', $produit)
+                    ->getQuery();
+
+        $query->execute();
+    }
+
     public function updateCartData(Cart $cart ,Produits $produit,User $user)
     {
        

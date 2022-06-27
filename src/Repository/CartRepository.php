@@ -54,6 +54,19 @@ class CartRepository extends ServiceEntityRepository
 
         $query->execute();
     }
+
+    public function deleteCart(Produits $produit)
+    {
+
+        $em =  $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $query = $qb->delete('App\Entity\Cart', 'c')
+                    ->where('c.produit = :produit')
+                    ->setParameter('produit', $produit)
+                    ->getQuery();
+
+        $query->execute();
+    }
 //    /**
 //     * @return Cart[] Returns an array of Cart objects
 //     */
