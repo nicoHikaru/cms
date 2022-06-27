@@ -80,6 +80,15 @@
 .flexColumn {
     @include displayFlexColumnOnly();
 }
+.flexEnd {
+    @include displayFlexEnd();
+}
+.ml-15 {
+    margin-right: 15px;
+}
+.mt-5 {
+    margin-top: 5px;
+}
 .button {
     background: rgb(51, 181, 7);
     border: 0;
@@ -116,4 +125,11 @@
 }
 .hauteur  {
     height: 100vh;
+}
+.colorDelete {
+    color:rgb(240, 9, 9);
+}
+.tailleSvg20 {
+    width: 20px;
+    height: 20px;
 }
