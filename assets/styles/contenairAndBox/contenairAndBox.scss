@@ -34,6 +34,19 @@
             border-radius: 5px;
         }
     }
+    .imageFill {
+        @include displayFlexCenter();
+        padding: 50px;
+        .addCart {
+            position: absolute;
+            background: rgba(255, 255, 255,1);
+            margin-top:200px;
+            z-index: 1;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    }
     .titleCardProduit {
         @include displayFlexCenter();
         font-family: Georgia, serif;
@@ -87,4 +100,9 @@
     width: 90%;
     inset:0;
     margin-left: -20%;
+}
+.imageFillSvg {
+    width: 120px;
+    height: 120px;
+    color: lightgray;
 }
