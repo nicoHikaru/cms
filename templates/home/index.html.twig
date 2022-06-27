@@ -50,7 +50,13 @@
                 </span>
                 <span class="cardPhotoAndCart">
                     <a href="{{ path('app_produit_detail' , { 'idProduit':data[0].id }) }}">
-                        <img src="{{ asset('uploads/articles/' ~ data[0].photo ) }}" class="imgProduit"/>
+                        {% if data[0].photo == null or data[0].photo is empty %}
+                            <div class="imageFill">
+                                {% include('svg/imageFill.html.twig') %}
+                            </div>
+                        {% else %}
+                            <img src="{{ asset('uploads/articles/' ~ data[0].photo ) }}" class="imgProduit"/>
+                        {% endif %}
                     </a>
                     {% if app.user != null %}
                         {% if produitsInCart is empty %}

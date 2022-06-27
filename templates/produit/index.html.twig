@@ -52,7 +52,11 @@
                     {% endif %}
                 </div>
                 <span class="flexCenter">
-                    <img src="{{ asset('uploads/articles/' ~ produit.photo ) }}"  width="80%" height="80%"/>
+                    {% if produit.photo == null %}
+                        {% include('svg/imageFill.html.twig') %}
+                    {% else %}
+                        <img src="{{ asset('uploads/articles/' ~ produit.photo ) }}"  width="80%" height="80%"/>
+                    {% endif %}
                 </span>
                 <div id="imgFooterProduit">autre image</div>
             </div>

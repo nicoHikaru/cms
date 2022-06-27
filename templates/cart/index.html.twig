@@ -22,10 +22,17 @@
                     </thead>
                     <tbody class="tableCartTbody">
                         {% for data in carts %}
-                            <td>
-                                <img src="{{ asset('uploads/articles/' ~ data.produit.photo) }}" class="imgArticles"/>
-                                {{ data.produit.nom}}
-                            </td>
+                            {% if data.produit.photo == null %}
+                                <td>
+                                    {% include('svg/imageFillSmall.html.twig') %}
+                                    {{ data.produit.nom}}
+                                </td>
+                            {% else %}
+                                <td>
+                                    <img src="{{ asset('uploads/articles/' ~ data.produit.photo) }}" class="imgArticles"/>
+                                    {{ data.produit.nom}}
+                                </td>
+                            {% endif %}
                             <td>
                                 {% if data.produit.typeProduit != null %}
                                     {{ data.produit.typeProduit.nom }}

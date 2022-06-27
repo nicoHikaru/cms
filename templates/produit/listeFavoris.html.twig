@@ -5,7 +5,7 @@
 {% block body %}
 <section class="contenair hauteur flexColumn justifyContentStart">
     <h2>Liste de favoris</h2>
-    <div class="box favorisBox">
+    <div class="box favorisBox flexCenter">
         {% if favoris is empty %}
             <div class="messageEmpty">
                 {% include('svg/listeVide.html.twig') %}
@@ -30,7 +30,12 @@
                             <span>{{ data.produit.nom }}</span>
                         </td>
                     {% else %}
-                        <td>{{ data.produit.nom }}</td>
+                        <td>
+                            <a href="{{ path('app_produit_detail' ,{'idProduit':data.produit.id})}}">
+                                {% include('svg/imageFillSmall.html.twig') %}
+                            </a>
+                            {{ data.produit.nom }}
+                        </td>
                     {% endif %}
                     <td>a ajouter en base</td>
                     <td>{{ data.produit.price }} euros</td>

@@ -29,7 +29,13 @@
                     </span>
                     <span class="cardPhotoAndCart">
                         <a href="{{ path('app_produit_detail' , { 'idProduit':data.id }) }}">
-                            <img src="{{ asset('uploads/articles/' ~ data.photo ) }}" class="imgProduit"/>
+                            {% if data.photo == null or data.photo is empty %}
+                                <div class="imageFill">
+                                    {% include('svg/imageFill.html.twig') %}
+                                </div>
+                            {% else %}
+                                <img src="{{ asset('uploads/articles/' ~ data.photo ) }}" class="imgProduit"/>
+                            {% endif %}
                         </a>
                         {% if app.user != null %}
                             <span class="addCart" style="z-index:1;">
