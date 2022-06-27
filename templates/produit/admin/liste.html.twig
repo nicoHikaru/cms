@@ -20,6 +20,13 @@
     <div class="box">
             {% for data in produit %}
                 <div class="card">
+                    <span class="deleteArticle flexEnd ml-15 mt-5">
+                        {% include('svg/xCircle.html.twig') %}
+                        {% if app.user is defined %}
+                            <input type="hidden" name="idUser" value="{{ app.user.id }}"/>
+                        {% endif %}
+                        <input type="hidden" name="idArticle" value="{{ data.id }}"/>
+                    </span>
                     <span class="cardPhotoAndCart">
                         <a href="{{ path('app_produit_detail' , { 'idProduit':data.id }) }}">
                             <img src="{{ asset('uploads/articles/' ~ data.photo ) }}" class="imgProduit"/>
