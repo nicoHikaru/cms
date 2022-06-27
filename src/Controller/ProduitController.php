@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Cart;
 use App\Entity\Favoris;
 use App\Entity\Produits;
 use App\Form\ProduitType;
@@ -79,7 +77,7 @@ class ProduitController extends AbstractController
      * @return JsonResponse
      */
     #[Route('/produit/favoris/{idProduit}/{idUser}', name: 'app_produit_favoris', methods: ['GET','POST'])]
-    public function favoris(Request $request,int $idProduit,int $idUser)
+    public function favoris(Request $request,int $idProduit,int $idUser):JsonResponse
     {
         $produit = $this->produitsService->findById($idProduit);
         $user = $this->userService->findById($idUser);
@@ -200,5 +198,34 @@ class ProduitController extends AbstractController
             'rolesAdmin' => $rolesAdmin,
             'typesProduits' => $typesProduits
         ]);
+    }
+
+    /**
+     * Permet effacer article
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[Route('/delete/article/{idUser}/{idProduit}', name: 'app_produit_delete', methods: ['GET','POST'])]
+    public function deleteArticle(Request $request,int $idProduit,int $idUser):JsonResponse
+    {
+        $produit = $this->produitsService->findById($idProduit);
+        $user = $this->userService->findById($idUser);
+
+        $rolesAdmin = RolesUser::rolesAdmin();
+
+        $bool = false;
+        if($user->getRoles()[0] === $rolesAdmin) {
+            $this->favorisService->deleteFavoris($produit);
+            $this->cartService->deleteCart($produit);
+            $this->produitsService->deleteProduit($produit);
+            $bool = true;
+        }
+
+        $data = [
+            'info' => $bool,
+        ];
+        
+        return new JsonResponse($data);
     }
 }
