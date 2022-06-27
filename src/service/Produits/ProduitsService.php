@@ -35,6 +35,11 @@ class ProduitsService
         return $this->produitsRepository->findBy(array("typeProduit" => $typeProduits));
     }
 
+    public function deleteProduit(Produits $produit)
+    {
+        return $this->produitsRepository->deleteProduit($produit);
+    }
+
     public function savePhoto(Produits $produits,string $nom,int $price,$newFilename,$dateTime)
     {
         $produits->setNom($nom);

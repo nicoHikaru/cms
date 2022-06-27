@@ -50,6 +50,11 @@ class FavorisService
         return $this->favorisRepository->findOneBy(array("produit" => $produit, "user" => $user));
     }
 
+    public function deleteFavoris(Produits $produit)
+    {
+        return $this->favorisRepository->deleteFavoris($produit);
+    }
+
     public function delete(User $user,Produits $produit)
     {
         return $this->favorisRepository->delete($user,$produit);

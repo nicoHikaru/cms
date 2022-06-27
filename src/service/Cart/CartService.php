@@ -68,6 +68,11 @@ class CartService
         return $this->cartRepository->findOneBy(array("produit" => $produit, "user" => $user));
     }
 
+    public function deleteCart(Produits $produit)
+    {
+        return $this->cartRepository->deleteCart($produit);
+    }
+
     public function delete(User $user,Produits $produit)
     {
         return $this->cartRepository->delete($user,$produit);
