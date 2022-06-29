@@ -34,13 +34,18 @@ class RegistrationController extends AbstractController
         $nav = $this->mainNavService->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            $req = $request->request;
+                  
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            foreach($req as $r) {
+                $user->setEmail($r['email']);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
