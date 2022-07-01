@@ -67,6 +67,11 @@
             color: lightgray;
             font-weight: bold;
         }
+        .prix {
+            font-size: 1.2em;
+            margin-top:5px; 
+            width: 50px;
+        }
         .info {
             @include displayFlexColumn();
             span:nth-child(1) {
@@ -80,6 +85,21 @@
                 img {
                     width: 100px;
                     height: 20px;
+                }
+            }
+            .modif {
+                background: rgb(25, 210, 25);
+                button {
+                    width: 100px;
+                    height: 20px;
+                    background: transparent;
+                    border: 0;
+                    color: white;
+                    font-size: 1.2em;
+                }
+                &:hover {
+                    cursor: pointer;
+                    background: rgb(6, 164, 6);
                 }
             }
         }  

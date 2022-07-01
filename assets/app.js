@@ -14,5 +14,6 @@ import './bootstrap';
 import './js/favoris.js';
 import './js/cart.js';
 import './js/deleteArticle.js';
+import './js/editProduit.js';
 import './js/modal.js';
 import './js/sideBar.js';
