@@ -39,6 +39,9 @@ class Produits
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Cart::class)]
     private $carts;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $description;
+
     public function __construct()
     {
         $this->favoris = new ArrayCollection();
@@ -178,6 +181,18 @@ class Produits
                 $cart->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

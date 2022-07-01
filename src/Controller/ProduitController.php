@@ -177,7 +177,7 @@ class ProduitController extends AbstractController
         $nav = $this->mainNavService->findAll();
         $getProduit = $this->produitsService->findAll();
         $user = $this->getUser();
-
+        
         $rolesAdmin = RolesUser::rolesAdmin();
         $typesProduits = $this->typeProduitsRepository->findAll();
         
@@ -224,6 +224,33 @@ class ProduitController extends AbstractController
 
         $data = [
             'info' => $bool,
+        ];
+        
+        return new JsonResponse($data);
+    }
+
+    /**
+     * Permet effacer article
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    #[Route('/produit/edit/{idUser}/{idProduit}', name: 'app_produit_edit', methods: ['GET','POST'])]
+    public function editArticle(Request $request,int $idUser,int $idProduit):JsonResponse
+    {
+        $produit = $this->produitsService->findById($idProduit);
+        $user = $this->userService->findById($idUser);
+
+        $rolesAdmin = RolesUser::rolesAdmin();
+        $req = $request->request;
+        $bool = false;
+        if($user->getRoles()[0] === $rolesAdmin) {
+            
+            $bool = true;
+        }
+
+        $data = [
+            'info' => $user,
         ];
         
         return new JsonResponse($data);
