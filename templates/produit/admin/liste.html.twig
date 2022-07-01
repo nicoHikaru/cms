@@ -46,25 +46,27 @@
                             </span>
                         {% endif %}
                     </span>
-                    <span class="titleCardProduit">
-                        Lorem ipsum dolor sit amet
-                    </span>
-                    <span class="detailCardProduit">
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </span>
-                    <div class="footerCard">
-                        <span class="price">{{ data.price }}€</span>
-                        <span class="info">
-                            {% if data.reduction != null %}
-                                <span>{{ data.reduction}}% reduction</span>
-                            {% else %}
-                                
-                            {% endif %}
-                            <span class="note">
-                                <img src="{{ asset('img/etoile.png')}}" />
-                            </span>
+                    <form method="POST" class="formProduits">
+                        <div class="titleCardProduit">
+                            <input type="text" name="title" value="Lorem ipsum dolor sit amet" placeholder="saisir nom article" />
+                            <input type="hidden" name="idUser" value="{{ app.user.id }}"/>
+                            <input type="hidden" name="idArticle" value="{{ data.id }}"/>
+                        </div>
+                        <span class="detailCardProduit">
+                            <textarea id="story" name="detail" rows="5" cols="33" maxlength="110" placeholder="saisir...">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</textarea>
                         </span>
-                    </div>
+                        <div class="footerCard">
+                            <input class="prix" type="text" name="price" value="{{ data.price }}" placeholder="prix..." />
+                            <div class="info">
+                                {% if data.reduction != null %}
+                                    <span>{{ data.reduction}}% reduction</span>
+                                {% endif %}
+                                <span class="modif">
+                                    <button name="submit" name="t" class="modifSubmit">Modifier</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             {% endfor %}
 
