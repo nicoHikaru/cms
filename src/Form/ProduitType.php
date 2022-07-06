@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProduitType extends AbstractType
 {
@@ -52,7 +53,7 @@ class ProduitType extends AbstractType
                 'label' => 'photo article',
                 'constraints' => [
                     new Image([
-                        'maxSize' => '200k'
+                        'maxSize' => '2000k',
                     ])
                     ],
                     'required' => false,
@@ -66,6 +67,17 @@ class ProduitType extends AbstractType
                 },
                 'choice_label' => 'nom',
                 'placeholder' => 'choisir',
+            ])
+            ->add('description',TextareaType::class,[
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Saisir nom article',
+                    ]),
+                ],
+                'attr' => array(
+                    'placeholder' => 'Saisir...',
+                )
             ])
         ;
     }
