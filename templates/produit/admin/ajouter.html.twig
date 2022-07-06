@@ -41,6 +41,15 @@
                 <div class="displayFlexStartColumn">
                     {{form_label(form.typeProduit)}}
                     {{form_widget(form.typeProduit)}}
+                </div> 
+            </div>
+            <div class="formAjoutProduit marginTopAjoutProduit">
+                <div class="displayFlexStartColumn">
+                    <div>
+                        {{form_label(form.description)}}
+                        <span style="color:red;">*</span>
+                    </div>
+                    {{form_widget(form.description)}}
                 </div>
             </div>
             <input type="submit" class="button" name="submit" value="Valider"/>
