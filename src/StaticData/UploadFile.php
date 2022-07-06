@@ -22,8 +22,7 @@ class UploadFile extends AbstractController
                     $controller->getParameter('brochures_directory'),
                     $newFilename
                 );
-            } catch (FileException $message) {
-                // ... handle exception if something happens during file upload
+            } catch (FileException $message) { 
                 throw new ErrorException($message);
             }
             return $newFilename;
