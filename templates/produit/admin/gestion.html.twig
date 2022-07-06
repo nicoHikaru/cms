@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion admin{% endblock %}
+
+{% block body %}
+<section class="flexCenter">
+    <div class="box width-60 p-50-25">
+        <div class="boxGestion flexRow">
+
+            <div class="typeForm">
+                <h3>Type de produit</h3>
+                {{ form_start(form) }}
+                        
+                    {{ form_row(form.nom,{  label: 'Nom', attr: {'class': 'test'} }) }}
+                    
+                    <button type="submit" class="button mgtForm">Valider</button>
+                {{ form_end(form) }}
+            </div>
+
+            <div class="listeType">
+                <h3>Liste produits</h3>
+                <ul>
+                    {% for produit in produits %}
+                        <li>{{ produit.nom }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+
+</section>
+{% endblock %}

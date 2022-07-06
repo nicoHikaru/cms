@@ -2,18 +2,22 @@
 
 namespace App\Controller;
 
+use ErrorException;
 use App\Entity\Favoris;
 use App\Entity\Produits;
 use App\Form\ProduitType;
+use App\Entity\TypeProduits;
 use App\StaticData\RolesUser;
 use App\StaticData\UploadFile;
 use App\StaticData\DateAndTime;
+use App\Form\TypeProduitFormType;
 use App\Service\Cart\CartService;
 use App\Service\User\UserService;
 use App\Service\Nav\MainNavService;
 use App\Service\Favoris\FavorisService;
 use App\Service\Produits\ProduitsService;
 use App\Repository\TypeProduitsRepository;
+use App\Service\Produits\TypeProduitService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,16 +34,16 @@ class ProduitController extends AbstractController
     private FavorisService $favorisService;
     private UserService $userService;
     private CartService $cartService;
-    private TypeProduitsRepository $typeProduitsRepository;
+    private TypeProduitService $typeProduitService;
 
-    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,FavorisService $favorisService,UserService $userService,CartService $cartService,TypeProduitsRepository $typeProduitsRepository)
+    public function __construct(MainNavService $mainNavService,ProduitsService $produitsService,FavorisService $favorisService,UserService $userService,CartService $cartService,TypeProduitService $typeProduitService)
     {
         $this->mainNavService = $mainNavService;
         $this->produitsService = $produitsService;
         $this->favorisService = $favorisService;
         $this->userService = $userService;
         $this->cartService = $cartService;
-        $this->typeProduitsRepository = $typeProduitsRepository;
+        $this->typeProduitService = $typeProduitService;
     }
     #[Route('/produit/detail/idProduit={idProduit}', name: 'app_produit_detail')]
     public function index(Request $request,int $idProduit,AuthenticationUtils $authenticationUtils): Response
@@ -130,7 +134,7 @@ class ProduitController extends AbstractController
             // /** @var UploadedFile $publication */
             $picture = $form->get('photo')->getData();
 
-            $newFilename = UploadFile::upload($picture,$this,$slugger);
+            $newFilename = UploadFile::upload($picture,$this,$slugger); 
             $dateTime = DateAndTime::now();
             
             $nom = $form->get('nom')->getData();
@@ -179,7 +183,7 @@ class ProduitController extends AbstractController
         $user = $this->getUser();
         
         $rolesAdmin = RolesUser::rolesAdmin();
-        $typesProduits = $this->typeProduitsRepository->findAll();
+        $typesProduits = $this->typeProduitService->findAll();
         
         if($user === null or empty($user)) {
             return $this->redirectToRoute('home');
@@ -254,5 +258,45 @@ class ProduitController extends AbstractController
         ];
         
         return new JsonResponse($data);
+    }
+
+    #[Route('/produit/gestion', name: 'app_produit_gestion')]
+    public function listeGestion(Request $request): Response
+    {
+    
+        $nav = $this->mainNavService->findAll();
+        $getTypeProduit = $this->typeProduitService->findAll();
+        $user = $this->getUser();
+        
+        $rolesAdmin = RolesUser::rolesAdmin();
+        $typesProduits = $this->typeProduitService->findAll();
+        
+        if($user === null or empty($user)) {
+            return $this->redirectToRoute('home');
+        }
+        
+        $req = $request->request;
+
+        $typesProduits = new TypeProduits();
+        $form = $this->createForm(TypeProduitFormType::class, $typesProduits, []);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+           
+            $name = $form->get('nom')->getData();
+            $typeProduits = new TypeProduits();
+            $this->typeProduitService->saveNewTypeProduit($typeProduits,$name);
+            
+            $this->addFlash('success', 'ajout type produit');
+            return $this->redirectToRoute('app_produit_gestion', [], Response::HTTP_SEE_OTHER);
+        }
+    
+        return $this->render('produit/admin/gestion.html.twig', [
+            'nav' => $nav,
+            'rolesAdmin' => $rolesAdmin,
+            'typesProduits' => $typesProduits,
+            'form' => $form->createView(),
+            'produits' => $getTypeProduit
+        ]);
     }
 }
