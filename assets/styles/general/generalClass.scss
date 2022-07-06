@@ -69,6 +69,14 @@
         padding: 5px 10px;
     }
 }
+.flexRow {
+    display:flex;
+    flex-direction: row;
+}
+.flexWrap {
+    display: flex;
+    flex-wrap: wrap;
+}
 .flexCenter {
     @include displayFlexCenter();
     flex-direction: column;
@@ -88,6 +96,9 @@
 }
 .mt-5 {
     margin-top: 5px;
+}
+.p-50-25 {
+    padding: 50px 25px;
 }
 .button {
     background: rgb(51, 181, 7);
@@ -130,5 +141,8 @@
     color:rgb(240, 9, 9);
 }
 textarea {
-    resize: none;
-  }
+resize: none;
+}
+.width-60 {
+    width: 60%;
+}
