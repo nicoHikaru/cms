@@ -18,6 +18,12 @@
         </form>
     </div>
     <div class="box">
+        {% if produit is empty %}
+            <div class="messageEmpty">
+                {% include('svg/listeVide.html.twig') %}
+                <span>Liste vide</span>
+            </div>
+        {% else %}
             {% for data in produit %}
                 <div class="card">
                     <span class="deleteArticle flexEnd ml-15 mt-5">
@@ -69,6 +75,7 @@
                     </form>
                 </div>
             {% endfor %}
+        {% endif %}
 
        
     </div>
